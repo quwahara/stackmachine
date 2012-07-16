@@ -397,5 +397,52 @@ print
 <div>outputs</div>
 <div><pre id="outputarea"></pre></div>
 
+
+<hr>
+<h3>これは?</h3>
+<p>命令が4つ、メモリが10個の仮想スタックマシンです。
+<h3>使い方</h3>
+<p>「reset machine」をクリック。仮想スタックマシンがリセットされます。
+<p>「load to memory」をクリック。inputs(ソース)の内容をメモリにロードします。
+<p>「-stop」が[Yes]になるまで「tick」をクリック。
+<p>「-stop」が[Yes]になると、仮想スタックマシンはもう停止状態なので、また「reset ～」から始めて下さい。
+<h3>命令</h3>
+<h4>push (整数)</h4>
+(整数) を「stack」に積みます。
+<h4>add</h4>
+「stack」に積んである2つの (整数) をおろして、加算し、その結果を「stack」に積みます。「stack」に2つ以上の (整数)が積んでないときは、「Stack under-flow」で停止します。
+<h4>print</h4>
+「stack」に積んである1つの (整数) をおろして、「ouputs」に出力します。「stack」に1つ以上の (整数)が積んでないときは、「Stack under-flow」で停止します。
+<h4>stop</h4>
+仮想スタックマシンが停止状態になります。
+<h3>inputs</h3>
+ソースファイルのようなものです。前述の命令を記述します。メモリが10個しかないので、停止することを考えると、実質命令は9個しか書けません。
+<div>サンプルソース</div>
+<pre>
+push 3
+push 4
+add
+push 5
+add
+print
+</pre>
+<h3>status</h3>
+ステータスはCPUの状態を表しています。
+<h4>- phase</h4>
+phase はCPUが命令を読み込む、「fetch」、実行する「exec」、メモリカウンタを1つ進める「increment」があります。
+「tick」をクリックするごとにCPUはその3つを順に行います。
+<h4>- counter</h4>
+メモリカウンタです。CPUは「fetch」のときにこの数値のaddress から「- opecode」に命令を読み込ます。
+<h4>- opecode</h4>
+CPUが「exec」で実行する命令です。
+<h4>- stop</h4>
+CPUが停止状態のときに「Yes」になるフラグです。
+
+<h3>ライセンス</h3>
+<p>MIT ライセンスで公開しています。 ライセンスの全文は下で参照できます。
+<p><a href="https://raw.github.com/quwahara/stackmachine/master/LICENSE">
+https://raw.github.com/quwahara/stackmachine/master/LICENSE
+</a>
+
 </body>
 </html>
