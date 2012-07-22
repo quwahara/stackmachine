@@ -6,5 +6,4 @@ stackmachine
 A Virtual Stack-machine, it has four operations and ten addressing memory, implemented by javascript.
 
 * working example
-http://quwahara.github.com/stackmachine/stackmachine.html
-
+http://quwahara.github.com/stackmachine/bs/stackmachinebs.html
