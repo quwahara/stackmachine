@@ -9,4 +9,3 @@ A Virtual Stack-machine, it has four operations and ten addressing memory, imple
 http://quwahara.github.com/stackmachine/bs/stackmachinebs.html
 
 
-
