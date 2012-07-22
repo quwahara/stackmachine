@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Stackmachine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="assets/css/docs.css" rel="stylesheet">
+    <link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+  </head>
+
+  <body data-spy="scroll" data-target=".subnav" data-offset="50">
+
+
+  <!-- Navbar
+    ================================================== -->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button"class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="./stackmachine.html">Stackmachine</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+<!-- Masthead
+================================================== -->
+<header class="jumbotron subhead" id="overview">
+  <h1>Stackmachine</h1>
+  <p class="lead">命令が4つ、メモリが10個の仮想スタックマシンです。 </p>
+  <div class="subnav">
+    <ul class="nav nav-pills">
+      <li><a href="#machine">Stackmachine</a></li>
+      <li><a href="#manual">説明</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- The machine
+================================================== -->
+<section id="machine">
+  <div class="page-header">
+	<h1>Stackmachine</h1>
+  </div>
+<!-- *** buttons *** -->
+  <div class="row">
+	    <div class="span12">
+<!-- <input class="btn" type="button" value="boot machine" > -->
+<input class="btn" type="button" id="resetbtn" value="reset machine" >
+<input class="btn" type="button" id="loadbtn" value="load to memory" >
+<input class="btn" type="button" id="tickbtn" value="tick" >
+<input class="btn" type="button" id="clearbtn" value="clear outputs" >
+<!-- <input class="btn" type="button" value="dev" > -->
+	    </div>
+  </div>
+  
+  <!-- *** inputs, outputs *** -->
+  <div class="row">
+    <div class="span6">
+		<h2>inputs</h2>
+      <textarea class="input-xlarge" id="inputarea" rows="10" cols="10">push 3
+push 5
+add
+print
+</textarea>
+        </div>
+	    
+	    <div class="span6">
+		<h2>outpus</h2>
+  		<pre id="outputarea"></pre>
+		</div>
+  </div>
+  
+  <!-- *** memory, stack, status *** -->
+  <div class="row">
+  	
+	    <div class="span6">
+    	<h2>memory</h2>
+	 	<div><table class="table table-bordered" id="memory"></table></div>
+		</div>
+	    
+	    <div class="span3">
+    	<h2>stack</h2>
+    	<div><table class="table table-bordered" id="stack"></table></div>
+		</div>
+	    
+	    <div class="span3">
+		<h2>status</h2>
+		<div>
+		<table class="table">
+			<tr><th>phase</th>		<td><code id="phase">-</code></td></tr>
+			<tr><th>counter</th>	<td><code id="counter">-</code></td></tr>
+			<tr><th>opecode</th>	<td><code id="opecode">-</code></td></tr>
+			<tr><th>stop</th>		<td><code id="stop">-</code></td></tr>
+		</table>
+		</div>
+		</div>
+  	
+  </div>
+  
+</section>
+
+<!-- manual
+================================================== -->
+<section id="manual">
+  <div class="page-header">
+    <h1>説明</h1>
+  </div>
+  <div class="row">
+  <div class="span12">
+  	
+<h2>これは?</h2>
+<p>命令が4つ、メモリが10個の仮想スタックマシンです。
+<h2>使い方</h2>
+<p>「reset machine」をクリック。仮想スタックマシンがリセットされます。
+<p>「load to memory」をクリック。inputs(ソース)の内容をメモリにロードします。
+<p>「-stop」が[Yes]になるまで「tick」をクリック。
+<p>「-stop」が[Yes]になると、仮想スタックマシンはもう停止状態なので、また「reset ～」から始めて下さい。
+<h2>命令</h2>
+<h4>push (整数)</h4>
+(整数) を「stack」に積みます。
+<h4>add</h4>
+「stack」に積んである2つの (整数) をおろして、加算し、その結果を「stack」に積みます。「stack」に2つ以上の (整数)が積んでないときは、「Stack under-flow」で停止します。
+<h4>print</h4>
+「stack」に積んである1つの (整数) をおろして、「ouputs」に出力します。「stack」に1つ以上の (整数)が積んでないときは、「Stack under-flow」で停止します。
+<h4>stop</h4>
+仮想スタックマシンが停止状態になります。
+<h2>inputs</h2>
+ソースファイルのようなものです。前述の命令を記述します。メモリが10個しかないので、停止することを考えると、実質命令は9個しか書けません。
+<div>サンプルソース</div>
+<pre>
+push 3
+push 4
+add
+push 5
+add
+print
+</pre>
+<h2>status</h2>
+ステータスはCPUの状態を表しています。
+<h4>phase</h4>
+phase はCPUが命令を読み込む、「fetch」、実行する「exec」、メモリカウンタを1つ進める「increment」があります。
+「tick」をクリックするごとにCPUはその3つを順に行います。
+<h4>counter</h4>
+メモリカウンタです。CPUは「fetch」のときにこの数値のaddress から「- opecode」に命令を読み込ます。
+<h4>opecode</h4>
+CPUが「exec」で実行する命令です。
+<h4>stop</h4>
+CPUが停止状態のときに「Yes」になるフラグです。
+
+<h2>ライセンス</h2>
+<p>MIT ライセンスで公開しています。 ライセンスの全文は下で参照できます。
+<p><a href="https://raw.github.com/quwahara/stackmachine/master/LICENSE">
+https://raw.github.com/quwahara/stackmachine/master/LICENSE
+</a>
+  	
+  </div>
+  </div>
+</section>
+
+     <!-- Footer
+      ================================================== -->
+      <footer class="footer">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+		<p>
+			Based on <a target="_blank" href="http://twitter.github.com/bootstrap/">Bootstrap</a>. 
+			Hosted on <a target="_blank" href="http://pages.github.com/">GitHub</a>. 
+			Icons from <a target="_blank" href="http://glyphicons.com/">Glyphicons</a>. 
+			Web fonts from <a target="_blank" href="http://www.google.com/webfonts">Google</a>.
+			</p>
+      </footer>
+
+    </div><!-- /container -->
+    
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/google-code-prettify/prettify.js"></script>
+    <script src="assets/js/bootstrap-transition.js"></script>
+    <script src="assets/js/bootstrap-alert.js"></script>
+    <script src="assets/js/bootstrap-modal.js"></script>
+    <script src="assets/js/bootstrap-dropdown.js"></script>
+    <script src="assets/js/bootstrap-scrollspy.js"></script>
+    <script src="assets/js/bootstrap-tab.js"></script>
+    <script src="assets/js/bootstrap-tooltip.js"></script>
+    <script src="assets/js/bootstrap-popover.js"></script>
+    <script src="assets/js/bootstrap-button.js"></script>
+    <script src="assets/js/bootstrap-collapse.js"></script>
+    <script src="assets/js/bootstrap-carousel.js"></script>
+    <script src="assets/js/bootstrap-typeahead.js"></script>
+    <script src="assets/js/application.js"></script>
+	<script src="stackmachine.js"></script>
+    <script>
+var theStackMachine = null;
+var colored = [];
+
+function toYellow(elm) {
+	elm.css("background-color","yellow");
+	colored.push(elm);
+}
+function revertAllToWhite() {
+	while (0 < colored.length) {
+		var elm = colored.pop();
+		elm.css("background-color","white");
+	}
+}
+
+function toYellowTds(tds) {
+	var adr = tds[0];
+	var opecd = tds[1];
+	var operd = tds[2];
+	toYellow(adr);
+	toYellow(opecd);
+	if ("" !== $.trim(operd.text())) {
+		toYellow(operd);
+	}
+}
+
+function findTds(address) {
+	var mem = $("#memory");
+	var trs = mem.find("tr");
+	var i;
+	var adr = null;
+	var opecd = null;
+	var operd = null;
+	for(i = 0; i < trs.length; ++i) {
+		var tr = trs[i];
+		var tds = $(tr).find("td");
+		var adr = $(tds[0]);
+		if (address.toString() != adr.text()) {
+			adr = null;
+			continue;
+		}
+		opecd = $(tds[1]);
+		operd = $(tds[2]);
+		break;
+	}
+	if(null == adr) { return null; }
+	return [adr, opecd, operd];
+}
+function bootTheStackMachine() {
+	var m = theStackMachine = new stackmachine();
+	m.onConsoleout = function(output) {
+		var o = $("#outputarea");
+		o.append(output + "\r\n");
+	};
+	
+	var mem = $("#memory");
+	var i;
+	mem.empty();
+	mem.append("<tr><th>address</th><th>opecode</th><th>operand</th></tr>");
+	for (i = 0; i < m.memsize; ++i) {
+		var ope = m.peek(i);
+		var opecd = ope.opecode;
+		var operd = ope.operand ? ope.operand : " "; 
+		mem.append("<tr><td>" + i.toString() + "</td><td>" + opecd + "</td><td>" + operd + "</td></tr>");
+	}
+	m.onPeek = function(sender, address) {
+		var tds = findTds(address);
+		if (null == tds) { return; }
+		toYellowTds(tds);
+	};
+	m.onPoke = function(sender, address) {
+		var machine = sender;
+		var ope = machine.peek(address);
+		if (false == ope) { return; }
+		
+		var tds = findTds(address);
+		if (null == tds) { return; }
+		
+		var adr = tds[0];
+		var opecd = tds[1];
+		var operd = tds[2];
+		opecd.text(ope.opecode);
+		if (ope.operand) {
+			operd.text(ope.operand);
+		} else {
+			operd.text(" ");
+		}
+		
+		toYellowTds(tds);
+		return;
+	};
+	m.onShiftPhase = function(sender, ph) {
+		var phase = $("#phase");
+		phase.text(ph);
+		toYellow(phase);
+	};
+	m.onSetCounter = function(sender, count) {
+		var counter = $("#counter");
+		counter.text(count);
+		toYellow(counter);
+	};
+	m.onSetOpecode = function(sender, opecode) {
+		var opecd = $("#opecode");
+		opecd.text(opecode);
+		toYellow(opecd);
+	};
+	m.onPush = function(sender, operand) {
+		var stk = $("#stack");
+		stk.append("<tr><td>" + operand + "</td></tr>");
+		var lst = stk.find("tr:last-child");
+		toYellow(lst);
+	};
+	m.onPop = function(sender) {
+		var stk = $("#stack");
+		stk.find("tr:last-child").remove();
+	};
+	m.onSetStop = function(sender, yesno) {
+		var stop = $("#stop");
+		stop.text(yesno);
+		toYellow(stop);
+	};
+	m.reset();
+	revertAllToWhite();
+}
+function boot_onClick() {
+	bootTheStackMachine();
+	return;
+}
+function reset_onClick() {
+	theStackMachine.reset();
+	revertAllToWhite();
+}
+function tick_onClick() {
+	revertAllToWhite();
+	theStackMachine.tick();
+}
+function load_onClick() {
+	var srctext = $("#inputarea").val();
+	theStackMachine.loadToMemory(srctext);
+	revertAllToWhite();
+}
+function clear_outputs_onClick() {
+	var o = $("#outputarea");
+	o.empty();
+}
+function dev_onClick() {
+	return;
+}
+function attachEvent () {
+	$("#resetbtn").bind("click", reset_onClick);
+	$("#loadbtn").bind("click", load_onClick);
+	$("#tickbtn").bind("click", tick_onClick);
+	$("#clearbtn").bind("click", clear_outputs_onClick);
+}
+$(document).ready(function () {
+	attachEvent();
+ 	bootTheStackMachine();
+});
+    </script>
+
+  </body>
+</html>
