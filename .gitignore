@@ -1,1 +1,9 @@
-twitter-bootstrap-857b8fb
+twitter-bootstrap-857b8fb/
+bs/build/
+bs/examples/
+bs/templates/
+bs/examples.html
+bs/scaffolding.html
+bs/starter-template.html
+*~
+
