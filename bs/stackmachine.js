@@ -7,7 +7,7 @@ function stackmachine() {
 	this.counter = 0;
 	this.phase = 3;
 	this.stop = "No";
-	this.memsize = 10;
+	this.memsize = 20;
 	this.memory = [];
 	this.stack = [];
 	this.onConsoleout = function(output) {};
@@ -86,7 +86,28 @@ function stackmachine() {
 		if ("add" === this.opecode) {
 			var operand1 = this.pop();
 			var operand2 = this.pop();
-			var v = parseInt(operand1) + parseInt(operand2);
+			var v = parseInt(operand2) + parseInt(operand1);
+			this.push(v.toString());
+			return;
+		}
+		if ("sub" === this.opecode) {
+			var operand1 = this.pop();
+			var operand2 = this.pop();
+			var v = parseInt(operand2) - parseInt(operand1);
+			this.push(v.toString());
+			return;
+		}
+		if ("mul" === this.opecode) {
+			var operand1 = this.pop();
+			var operand2 = this.pop();
+			var v = parseInt(operand2) * parseInt(operand1);
+			this.push(v.toString());
+			return;
+		}
+		if ("div" === this.opecode) {
+			var operand1 = this.pop();
+			var operand2 = this.pop();
+			var v = parseInt(operand2) / parseInt(operand1);
 			this.push(v.toString());
 			return;
 		}
